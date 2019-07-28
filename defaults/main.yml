@@ -1,0 +1,8 @@
+---
+# stretch backports have the 4.19 lts kernel
+kernel_version: "4.19.0-0.bpo.5-amd64"
+
+apt_src_main_url: 'http://cdn-fastly.deb.debian.org/debian'
+apt_src_security_url: 'http://security.debian.org/'
+raspbian_debian_mirrors: 'http://raspbian.raspberrypi.org/raspbian/'
+raspbian_specific_mirrors: 'http://archive.raspberrypi.org/debian/'

@@ -1,0 +1,17 @@
+---
+# add i386 as steam requires it
+- name: Ensure i386 is added, there's no amd64 steam package
+  command: dpkg --add-architecture i386
+
+- name: accept steam license
+  debconf:
+    name: "steam"
+    question: "steam/question"
+    value: "I AGREE"
+    vtype: "select"
+
+- name: Install steam
+  apt:
+   name: steam
+   update_cache: yes
+   state: present
