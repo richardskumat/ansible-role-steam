@@ -12,6 +12,6 @@
 
 - name: Install steam
   apt:
-   name: steam
-   update_cache: yes
-   state: present
+    name: steam
+    update_cache: yes
+    state: present
