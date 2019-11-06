@@ -2,59 +2,13 @@
 # add i386 as steam requires it
 - name: Ensure i386 is added, there's no amd64 steam package
   command: dpkg --add-architecture i386
+  register: result
+  failed_when: "result.rc != 0"
+  changed_when: False
 
-- name: Create backports sources.list file
-  template:
-   src: templates/backports.list.j2
-   dest: "/etc/apt/sources.list.d/{{ ansible_distribution_release }}-backports.list"
-   mode: 0644
-   backup: yes
-
-- name: Install backported mesa amd64 and vulkan
+- name: Update apt cache
   apt:
-   name:
-    - libegl-mesa0:amd64
-    - libegl1-mesa:amd64
-    - libgbm1:amd64
-    - libgl1-mesa-dri:amd64
-    - libgl1-mesa-glx:amd64
-    - libglapi-mesa:amd64
-    - libgles2-mesa:amd64
-    - libglx-mesa0:amd64
-    - libwayland-egl1-mesa:amd64
-    - mesa-va-drivers:amd64
-    - mesa-vdpau-drivers:amd64
-    - mesa-vulkan-drivers:amd64
-    - vulkan-utils
-    - udev
-   default_release: "{{ ansible_distribution_release }}-backports"
    update_cache: yes
-
-# required to be done before steam is added to avoid package conflicts
-- name: Install backported mesa i386
-  apt:
-   name:
-    - libegl-mesa0:i386
-    - libegl1-mesa:i386
-    - libgbm1:i386
-    - libgl1-mesa-dri:i386
-    - libgl1-mesa-glx:i386
-    - libglapi-mesa:i386
-    - libgles2-mesa:i386
-    - libglx-mesa0:i386
-    - libwayland-egl1-mesa:i386
-    - mesa-va-drivers:i386
-    - mesa-vdpau-drivers:i386
-    - mesa-vulkan-drivers:i386
-    - udev:i386
-   default_release: "{{ ansible_distribution_release }}-backports"
-
-
-- name: Install backported kernel
-  apt:
-   name: "linux-image-{{ kernel_version }}"
-   default_release: "{{ ansible_distribution_release }}-backports"
-   state: present
 
 # steam has a popup during installation from apt on Debian that
 # asks for accepting a license
