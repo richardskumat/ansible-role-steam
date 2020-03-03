@@ -3,7 +3,7 @@ ansible-role-steam
 
 Installs steam on Debian.
 
-Currently only works on Debian 9, however it shouldn't be hard to Ubuntu 16.04 or 18.04 as they have similar
+Currently only works on Debian, however it shouldn't be hard to Ubuntu 16.04 or 18.04 as they have similar
 package names.
 
 I believe Ubuntu's steam package has no prompt to accept steam's licensing, they've automated
