@@ -12,7 +12,7 @@ env:
     - MOLECULE_DISTRO: qwe1/docker-debian:10-nonfree-molecule
 
 install:
-  - pip3 install ansible molecule docker ansible-lint
+  - pip3 ansible==2.9.12 molecule docker ansible-lint
 
 before_script:
   # Use actual Ansible Galaxy role name for the project directory.
