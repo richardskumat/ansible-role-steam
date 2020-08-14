@@ -1,0 +1,30 @@
+---
+language: python
+services: docker
+
+env:
+  global:
+    - ROLE_NAME: ansible-role-steam
+    - GALAXY_USERNAME: richardskumat
+    - GALAXY_ROLENAME: ansible_role_steam
+  matrix:
+    - MOLECULE_DISTRO: qwe1/docker-debian:9-nonfree-molecule
+    - MOLECULE_DISTRO: qwe1/docker-debian:10-nonfree-molecule
+
+install:
+  - pip3 install ansible molecule docker ansible-lint
+
+before_script:
+  # Use actual Ansible Galaxy role name for the project directory.
+  - cd ../
+  - mv $ROLE_NAME $GALAXY_USERNAME.$GALAXY_ROLENAME
+  - cd $GALAXY_USERNAME.$GALAXY_ROLENAME
+  - docker -v
+  - id
+
+
+script:
+  - molecule test
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
