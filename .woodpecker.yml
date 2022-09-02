@@ -1,0 +1,21 @@
+---
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: local build
+    image: qwe1/dind-ansible-molecule:root
+    volumes:
+      - name: dsock
+        path: /var/run/docker.sock
+    commands:
+      - ls -lah
+      - pwd
+      - mkdir -p ~/.ansible/roles && cp -aR "$(pwd)" ~/.ansible/roles/richardskumat.ansible_role_user
+      - molecule test
+
+volumes:
+  - name: dsock
+    host:
+      path: /var/run/docker.sock
